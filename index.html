@@ -65,6 +65,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            cursor: pointer;
         }
 
         .nav-menu a:hover, .nav-menu a.active {
@@ -151,7 +152,7 @@
             background: #15151c;
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 10px;
-            width: 200px;
+            width: 220px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             display: none;
             flex-direction: column;
@@ -312,6 +313,108 @@
             color: #ffffff;
         }
 
+        /* --- MODAL DE WHATSAPP / CAJERO --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-box {
+            background: #15151c;
+            border: 1px solid rgba(229, 9, 20, 0.4);
+            border-radius: 20px;
+            padding: 35px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 25px rgba(229, 9, 20, 0.2);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: scale(1);
+        }
+
+        .modal-icon {
+            font-size: 3rem;
+            color: #25d366; /* Color oficial WhatsApp */
+            margin-bottom: 15px;
+        }
+
+        .modal-box h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: #ffffff;
+        }
+
+        .modal-box p {
+            font-size: 0.95rem;
+            color: #d1d5db;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-whatsapp {
+            flex: 1;
+            background: #25d366;
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .btn-whatsapp:hover {
+            background: #20ba5a;
+        }
+
+        .btn-close-modal {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.08);
+            color: #9aa0a6;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-close-modal:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+        }
+
         /* Responsive */
         @media (max-width: 900px) {
             .nav-menu {
@@ -332,10 +435,10 @@
         <div class="logo">LUHAN <span>CASINO</span></div>
         
         <nav class="nav-menu">
-            <a href="#" class="active"><i class="fa-solid fa-house"></i> Inicio</a>
-            <a href="#"><i class="fa-solid fa-gamepad"></i> Juegos (150)</a>
-            <a href="#"><i class="fa-solid fa-fire"></i> Populares</a>
-            <a href="#"><i class="fa-solid fa-gift"></i> Promociones</a>
+            <a href="#" class="nav-link active" data-name="Inicio"><i class="fa-solid fa-house"></i> Inicio</a>
+            <a href="#" class="nav-link" data-name="Juegos"><i class="fa-solid fa-gamepad"></i> Juegos (150)</a>
+            <a href="#" class="nav-link" data-name="Populares"><i class="fa-solid fa-fire"></i> Populares</a>
+            <a href="#" class="nav-link" data-name="Promociones"><i class="fa-solid fa-gift"></i> Promociones</a>
         </nav>
 
         <div class="user-panel">
@@ -344,7 +447,7 @@
                 <span class="user-saldo">$<span id="userBalanceDisplay">0.00</span></span>
             </div>
             
-            <button class="btn-deposit">
+            <button class="btn-deposit" id="depositBtn">
                 <i class="fa-solid fa-wallet"></i> Depositar
             </button>
             
@@ -368,15 +471,15 @@
         <div class="hero-banner">
             <h2>Bono de Bienvenida</h2>
             <p>Disfruta de la mejor experiencia de apuestas con nuestros primeros juegos. ¡Prepárate para los 150 títulos en camino!</p>
-            <button class="btn-deposit" style="width: fit-content;">Reclamar Bono</button>
+            <button class="btn-deposit" id="bonusBtn" style="width: fit-content;">Reclamar Bono</button>
         </div>
 
         <div class="categories">
-            <button class="cat-btn active">🔥 Todos</button>
-            <button class="cat-btn">🎰 Slots</button>
-            <button class="cat-btn">🃏 Juegos de Mesa</button>
-            <button class="cat-btn">🔴 Casino en Vivo</button>
-            <button class="cat-btn">⭐ Favoritos</button>
+            <button class="cat-btn active" data-cat="todos">🔥 Todos</button>
+            <button class="cat-btn" data-cat="slots">🎰 Slots</button>
+            <button class="cat-btn" data-cat="mesa">🃏 Juegos de Mesa</button>
+            <button class="cat-btn" data-cat="vivo">🔴 Casino en Vivo</button>
+            <button class="cat-btn" data-cat="favoritos">⭐ Favoritos</button>
         </div>
 
         <h3 class="section-title"><i class="fa-solid fa-gamepad"></i> Primeros Juegos Disponibles</h3>
@@ -387,7 +490,7 @@
                 <div class="game-info">
                     <h3>Luhan Slots Classic</h3>
                     <p>Tragamonedas</p>
-                    <button class="btn-play">Jugar Ahora</button>
+                    <button class="btn-play trigger-alert">Jugar Ahora</button>
                 </div>
             </div>
             <div class="game-card">
@@ -395,7 +498,7 @@
                 <div class="game-info">
                     <h3>Red Ruby Roulette</h3>
                     <p>Ruleta en vivo</p>
-                    <button class="btn-play">Jugar Ahora</button>
+                    <button class="btn-play trigger-alert">Jugar Ahora</button>
                 </div>
             </div>
             <div class="game-card">
@@ -403,7 +506,7 @@
                 <div class="game-info">
                     <h3>Blackjack 21 Pro</h3>
                     <p>Cartas</p>
-                    <button class="btn-play">Jugar Ahora</button>
+                    <button class="btn-play trigger-alert">Jugar Ahora</button>
                 </div>
             </div>
             <div class="game-card">
@@ -411,11 +514,25 @@
                 <div class="game-info">
                     <h3>Neon Fortune</h3>
                     <p>Slots modernas</p>
-                    <button class="btn-play">Jugar Ahora</button>
+                    <button class="btn-play trigger-alert">Jugar Ahora</button>
                 </div>
             </div>
         </div>
     </main>
+
+    <div class="modal-overlay" id="whatsappModal">
+        <div class="modal-box">
+            <div class="modal-icon"><i class="fa-brands fa-whatsapp"></i></div>
+            <h3>Aviso del Sistema</h3>
+            <p>Tu cajero designó que tienes que retirar el dinero automáticamente vía WhatsApp de Luhan Casino.</p>
+            <div class="modal-actions">
+                <a href="https://wa.me/" target="_blank" class="btn-whatsapp" id="whatsappLink">
+                    <i class="fa-brands fa-whatsapp"></i> Ir a WhatsApp
+                </a>
+                <button class="btn-close-modal" id="closeModalBtn">Entendido</button>
+            </div>
+        </div>
+    </div>
 
     <script>
         // 1. Recuperar datos del localStorage al cargar
@@ -449,11 +566,68 @@
             mobileDropdown.classList.toggle('active');
         });
 
-        // Ocultar menú si hace clic fuera
         window.addEventListener('click', (e) => {
             if (!hamburgerBtn.contains(e.target) && !mobileDropdown.contains(e.target)) {
                 mobileDropdown.classList.remove('active');
             }
+        });
+
+        // 4. Funcionalidad del Modal de WhatsApp para los Juegos
+        const modal = document.getElementById('whatsappModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const triggerButtons = document.querySelectorAll('.trigger-alert');
+        const depositBtn = document.getElementById('depositBtn');
+        const bonusBtn = document.getElementById('bonusBtn');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const catButtons = document.querySelectorAll('.cat-btn');
+
+        // Función para abrir el modal con mensaje personalizado para WhatsApp opcional
+        function abrirModalWhatsApp(mensajeCustom = "") {
+            modal.classList.add('active');
+            // Puedes configurar aquí un número de teléfono de WhatsApp corporativo de Luhan Casino si lo deseas
+            const numeroWhatsApp = ""; // Ej: "5491112345678"
+            const textoMensaje = encodeURIComponent(`Hola Luhan Casino, mi usuario es ${usuarioGuardado} y necesito gestionar mi saldo/retiro con el cajero.`);
+            document.getElementById('whatsappLink').href = `https://wa.me/${numeroWhatsApp}?text=${textoMensaje}`;
+        }
+
+        function cerrarModalWhatsApp() {
+            modal.classList.remove('active');
+        }
+
+        // Al hacer clic en "Jugar Ahora" en cualquier juego
+        triggerButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                abrirModalWhatsApp();
+            });
+        });
+
+        // También activamos el aviso de cajero al intentar depositar o reclamar bonos
+        depositBtn.addEventListener('click', () => abrirModalWhatsApp());
+        bonusBtn.addEventListener('click', () => abrirModalWhatsApp());
+
+        // Cerrar modal
+        closeModalBtn.addEventListener('click', cerrarModalWhatsApp);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                cerrarModalWhatsApp();
+            }
+        });
+
+        // Interactividad para las pestañas de navegación superior y categorías (feedback visual)
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+            });
+        });
+
+        catButtons.forEach(cat => {
+            cat.addEventListener('click', () => {
+                catButtons.forEach(c => c.classList.remove('active'));
+                cat.classList.add('active');
+            });
         });
     </script>
 
