@@ -8,5 +8,10 @@
     "usuario": "luhan@casino.com",
     "contraseña": "adminpassword",
     "saldo": 50000.50
-  }
-]
+  },
+
+  {
+    "usuario": "diego01",
+    "contraseña": "diego01",
+    "saldo": 50000.50
+  }]
