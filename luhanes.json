@@ -14,4 +14,13 @@
     "usuario": "diego01",
     "contraseña": "diego01",
     "saldo": 422000.00
-  }]
+  },
+
+{
+    "usuario": "franco1",
+    "contraseña": "franco1",
+    "saldo": 0.00
+  }
+
+
+]
