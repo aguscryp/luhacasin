@@ -338,7 +338,7 @@
             box-shadow: 0 4px 15px rgba(229, 9, 20, 0.5);
         }
 
-        /* --- MODAL DE WHATSAPP / CAJERO --- */
+        /* --- MODAL GENERAL --- */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -504,13 +504,12 @@
             <button class="cat-btn" data-cat="slots">🎰 Slots 3D</button>
             <button class="cat-btn" data-cat="mesa">🃏 Cartas & Ruleta</button>
             <button class="cat-btn" data-cat="vivo">🔴 Casino en Vivo</button>
-            <button class="cat-btn" data-cat="favoritos">⭐ Favoritos</button>
         </div>
 
-        <h3 class="section-title"><i class="fa-solid fa-bolt" style="color: #e50914;"></i> Juegos Destacados (3D & Neón)</h3>
+        <h3 class="section-title"><i class="fa-solid fa-bolt" style="color: #e50914;"></i> Catálogo de Juegos</h3>
         
-        <div class="game-grid">
-            <div class="game-card">
+        <div class="game-grid" id="gameGrid">
+            <div class="game-card" data-category="slots">
                 <div class="game-img-container">
                     <span class="game-badge">HOT 3D</span>
                     <img src="https://images.unsplash.com/photo-1596838132731-3301c3fd4317?auto=format&fit=crop&w=600&q=80" alt="Luhan Slots Classic">
@@ -521,7 +520,7 @@
                     <button class="btn-play trigger-alert">Jugar Ahora</button>
                 </div>
             </div>
-            <div class="game-card">
+            <div class="game-card" data-category="mesa">
                 <div class="game-img-container">
                     <span class="game-badge">PREMIUM</span>
                     <img src="https://images.unsplash.com/photo-1606167668584-78701cded7f1?auto=format&fit=crop&w=600&q=80" alt="Red Ruby Roulette">
@@ -532,7 +531,7 @@
                     <button class="btn-play trigger-alert">Jugar Ahora</button>
                 </div>
             </div>
-            <div class="game-card">
+            <div class="game-card" data-category="mesa">
                 <div class="game-img-container">
                     <span class="game-badge">VIP</span>
                     <img src="https://images.unsplash.com/photo-1511193311914-0346f16efe90?auto=format&fit=crop&w=600&q=80" alt="Blackjack 21 Pro">
@@ -543,14 +542,14 @@
                     <button class="btn-play trigger-alert">Jugar Ahora</button>
                 </div>
             </div>
-            <div class="game-card">
+            <div class="game-card" data-category="vivo">
                 <div class="game-img-container">
-                    <span class="game-badge">NUEVO</span>
-                    <img src="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=600&q=80" alt="Neon Fortune">
+                    <span class="game-badge">EN VIVO</span>
+                    <img src="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=600&q=80" alt="Neon Fortune Live">
                 </div>
                 <div class="game-info">
-                    <h3>Neon Fortune</h3>
-                    <p>Slots Cyberpunk</p>
+                    <h3>Neon Fortune Live</h3>
+                    <p>Casino en Vivo 3D</p>
                     <button class="btn-play trigger-alert">Jugar Ahora</button>
                 </div>
             </div>
@@ -607,15 +606,13 @@
             }
         });
 
-        // 4. Lógica de Modales e Interacciones
+        // 4. Lógica de Modales
         const modal = document.getElementById('whatsappModal');
         const closeModalBtn = document.getElementById('closeModalBtn');
-        const triggerButtons = document.querySelectorAll('.trigger-alert');
         const depositBtn = document.getElementById('depositBtn');
         const bonusBtn = document.getElementById('bonusBtn');
         const navLinks = document.querySelectorAll('.nav-link');
-        const catButtons = document.querySelectorAll('.cat-btn');
-
+        
         const modalIconContainer = document.getElementById('modalIconContainer');
         const modalTitle = document.getElementById('modalTitle');
         const modalText = document.getElementById('modalText');
@@ -659,15 +656,19 @@
             modal.classList.remove('active');
         }
 
-        // Asignar eventos a los juegos
-        triggerButtons.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                abrirModalJuego();
+        // Asignar eventos a los botones de juego actuales (se actualizarán dinámicamente si cambian)
+        function actualizarEventosJuegos() {
+            const triggerButtons = document.querySelectorAll('.trigger-alert');
+            triggerButtons.forEach(btn => {
+                btn.removeEventListener('click', abrirModalJuego);
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    abrirModalJuego();
+                });
             });
-        });
+        }
+        actualizarEventosJuegos();
 
-        // Asignar eventos a Depositar y Bonos
         depositBtn.addEventListener('click', abrirModalDeposito);
         bonusBtn.addEventListener('click', abrirModalDeposito);
 
@@ -678,19 +679,36 @@
             }
         });
 
-        // Navegación visual
+        // 5. Sistema de Filtrado de Categorías
+        const catButtons = document.querySelectorAll('.cat-btn');
+        const gameCards = document.querySelectorAll('.game-card');
+
+        catButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Cambiar clase active en botones
+                catButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const categoriaSeleccionada = btn.getAttribute('data-cat');
+
+                // Filtrar las tarjetas de juegos
+                gameCards.forEach(card => {
+                    const categoriaJuego = card.getAttribute('data-category');
+                    if (categoriaSeleccionada === 'todos' || categoriaJuego === categoriaSeleccionada) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Navegación superior
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 navLinks.forEach(l => l.classList.remove('active'));
                 link.classList.add('active');
-            });
-        });
-
-        catButtons.forEach(cat => {
-            cat.addEventListener('click', () => {
-                catButtons.forEach(c => c.classList.remove('active'));
-                cat.classList.add('active');
             });
         });
     </script>
