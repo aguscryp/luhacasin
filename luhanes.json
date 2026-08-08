@@ -37,6 +37,11 @@
     "usuario": "oriana501",
     "contraseña": "oriana501",
     "saldo": 0.00
+  } ,
+
+  {
+    "usuario": "fernando502",
+    "contraseña": "fernando502",
+    "saldo": 0.00
   }  
-  
 ]
