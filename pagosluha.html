@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carga de Saldo - Pagos | Luhan Casino</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0b0b0f 0%, #15151c 100%);
+            min-height: 100vh;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* --- HEADER --- */
+        header {
+            background: rgba(21, 21, 28, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #ffffff;
+        }
+
+        .logo span {
+            color: #e50914;
+            text-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+        }
+
+        .btn-back {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #9aa0a6;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .btn-back:hover {
+            background: #e50914;
+            color: #ffffff;
+            border-color: #e50914;
+        }
+
+        /* --- CONTENIDO PRINCIPAL --- */
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .payment-container {
+            background: rgba(21, 21, 28, 0.95);
+            border: 1px solid rgba(229, 9, 20, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 550px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 30px rgba(229, 9, 20, 0.15);
+            text-align: center;
+        }
+
+        .payment-icon {
+            font-size: 3rem;
+            color: #e50914;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px rgba(229, 9, 20, 0.5);
+        }
+
+        .payment-container h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .welcome-text {
+            font-size: 0.95rem;
+            color: #9aa0a6;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .step-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .step-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step-title span {
+            background: #e50914;
+            color: #fff;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .data-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .data-info label {
+            display: block;
+            font-size: 0.75rem;
+            color: #9aa0a6;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .data-info span {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-copy {
+            background: rgba(229, 9, 20, 0.15);
+            border: 1px solid rgba(229, 9, 20, 0.4);
+            color: #ff8080;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-copy:hover {
+            background: #e50914;
+            color: #ffffff;
+            box-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+        }
+
+        .btn-whatsapp-send {
+            width: 100%;
+            background: #25d366;
+            color: #ffffff;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            transition: background 0.3s, transform 0.2s;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            margin-top: 10px;
+        }
+
+        .btn-whatsapp-send:hover {
+            background: #20ba5a;
+            transform: translateY(-2px);
+        }
+
+        .security-notice {
+            margin-top: 25px;
+            font-size: 0.8rem;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        /* Notificación flotante de copiado */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #2ecc71;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            font-size: 0.9rem;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #6b7280;
+            font-size: 0.8rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(21, 21, 28, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">LUHAN <span>CASINO</span></div>
+        <a href="index.html" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Volver al Inicio</a>
+    </header>
+
+    <main>
+        <div class="payment-container">
+            <div class="payment-icon">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h1>Portal de Pagos Oficial</h1>
+            <p class="welcome-text">
+                ¡Bienvenido a la pasarela segura de <strong>Luhan Casino</strong>! Carga saldo de forma rápida, 100% segura y comienza a disfrutar de toda la adrenalina y nuestros exclusivos juegos 3D.
+            </p>
+
+            <div class="step-box">
+                <div class="step-title"><span>1</span> Copia el Alias o CVU de destino</div>
+                
+                <div class="data-row">
+                    <div class="data-info">
+                        <label>Alias de Cta. Corriente</label>
+                        <span id="aliasText">luhacasino</span>
+                    </div>
+                    <button class="btn-copy" onclick="copiarTexto('luhacasino', 'Alias copiado al portapapeles')">
+                        <i class="fa-regular fa-copy"></i> Copiar
+                    </button>
+                </div>
+
+                <div class="data-row" style="margin-top: 10px;">
+                    <div class="data-info">
+                        <label>CVU Bancario / Fintech</label>
+                        <span id="cvuText">0000076500000054133970</span>
+                    </div>
+                    <button class="btn-copy" onclick="copiarTexto('0000076500000054133970', 'CVU copiado al portapapeles')">
+                        <i class="fa-regular fa-copy"></i> Copiar
+                    </button>
+                </div>
+            </div>
+
+            <div class="step-box" style="margin-bottom: 0;">
+                <div class="step-title"><span>2</span> Envía tu comprobante</div>
+                <p style="font-size: 0.85rem; color: #9aa0a6; margin-bottom: 15px; text-align: left;">
+                    Realiza la transferencia desde tu billetera virtual o banco preferido y envís el comprobante con tu usuario para acreditación inmediata.
+                </p>
+                <a href="https://wa.me/?text=Hola%20Luhan%20Casino,%20ya%20realicé%20la%20transferencia.%20Adjunto%20mi%20comprobante%20para%20cargar%20saldo." target="_blank" class="btn-whatsapp-send">
+                    <i class="fa-brands fa-whatsapp fa-lg"></i> Enviar Comprobante a tu Cajero
+                </a>
+            </div>
+
+            <div class="security-notice">
+                <i class="fa-solid fa-lock"></i> Transacciones encriptadas y vigiladas las 24 horas.
+            </div>
+        </div>
+    </main>
+
+    <div class="toast" id="toastNotification">¡Copiado con éxito!</div>
+
+    <footer>
+        &copy; 2026 Luhan Casino. Todos los derechos reservados. Plataforma oficial de entretenimiento VIP.
+    </footer>
+
+    <script>
+        function copiarTexto(texto, mensajeExito) {
+            navigator.clipboard.writeText(texto).then(() => {
+                mostrarToast(mensajeExito);
+            }).catch(err => {
+                console.error('Error al intentar copiar: ', err);
+            });
+        }
+
+        function mostrarToast(mensaje) {
+            const toast = document.getElementById('toastNotification');
+            toast.textContent = mensaje;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
+        }
+    </script>
+
+</body>
+</html>
